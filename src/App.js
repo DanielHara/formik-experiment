@@ -1,25 +1,44 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Formik, Field } from 'formik';
+
+const initialValues = {
+  name: 'Bob',
+  email: 'bob@gmail.com'
+};
+
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        Learning Formik!
+        <Formik 
+          initialValues={initialValues}
+          onSubmit={(values) => {
+            setTimeout(() => {
+              alert(JSON.stringify(values, null, 2));
+            }, 500);
+          }}
+         >
+          {() => <div>
+
+            <div className="row">
+              <div className="col">
+                <Field name="name" type="text" />
+              </div>
+              <div className="col">
+                <Field name="email" type="email" />
+              </div>
+              <div className="col">
+                <button type="button" >
+                  Submit
+                </button>
+              </div>
+            </div>
+
+          </div>
+          }
+        </Formik>
       </div>
     );
   }

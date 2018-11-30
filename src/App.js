@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form, FieldArray } from 'formik';
 
 const initialValues = {
+  friends: [],
   name: '',
   email: ''
 };
@@ -15,44 +16,57 @@ class App extends Component {
         <Formik 
           initialValues={initialValues}
           onSubmit={(values) => {
+            alert(JSON.stringify(values, null, 2));
+            /*
             setTimeout(() => {
               alert(JSON.stringify(values, null, 2));
-            }, 500);
+            }, 500); */
           }}
          >
-          {({ isSubmitting }) =>
+          {({ values, isSubmitting }) =>
             <Form>
-              <div className="row">
-                <div className="col">
-                  <Field name="name">
+              <FieldArray name="friends">
+                {({ push, remove }) => (
+                  <React.Fragment>
                     {
-                      ({ field, form }) => (
-                        <input {...field} type="text" placeholder="Bob" />
-                      )
+                      values.friends && values.friends.length > 0 && 
+                      values.friends.map((friend, index) => (
+                        <div className="row">
+                          <div className="col">
+                            <Field name="name">
+                              {
+                                ({ field, form }) => (
+                                  <input {...field} type="text" placeholder="Bob" />
+                                )
+                              }
+                            </Field>
+                          </div>
+                          <div className="col">
+                            <Field name="email">
+                              {
+                                ({ field, form }) => (
+                                  <input {...field} type="email" placeholder="bob@gmail.com" />
+                                )
+                              }
+                            </Field>
+                          </div>
+                          <div className="col">
+                            <button type="button" >
+                              X
+                            </button>
+                          </div>
+                        </div>
+                    ))
                     }
-                  </Field>
-                </div>
-                <div className="col">
-                  <Field name="email">
-                    {
-                      ({ field, form }) => (
-                        <input {...field} type="email" placeholder="bob@gmail.com" />
-                      )
-                    }
-                  </Field>
-                </div>
-                <div className="col">
-                  <button type="button" >
-                    X
-                  </button>
-                </div>
-                <button type="button" disabled={isSubmitting}>
-                  Add friend
-                </button>
-                <button type="submit" disabled={isSubmitting}>
-                  Invite
-                </button>
-              </div>
+                    <button type="button" onClick={() => { push(); }}>
+                      Add friend
+                    </button>
+                  </React.Fragment>
+                )}
+              </FieldArray >
+              <button type="submit" disabled={isSubmitting}>
+                Invite
+              </button>
             </Form>        
           }
         </Formik>

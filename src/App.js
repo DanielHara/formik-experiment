@@ -3,8 +3,6 @@ import { Formik, Field, Form, FieldArray } from 'formik';
 
 const initialValues = {
   friends: [],
-  name: '',
-  email: ''
 };
 
 
@@ -33,7 +31,7 @@ class App extends Component {
                       values.friends.map((friend, index) => (
                         <div className="row">
                           <div className="col">
-                            <Field name="name">
+                            <Field name={`friends[${index}].name`}>
                               {
                                 ({ field, form }) => (
                                   <input {...field} type="text" placeholder="Bob" />
@@ -42,7 +40,7 @@ class App extends Component {
                             </Field>
                           </div>
                           <div className="col">
-                            <Field name="email">
+                            <Field name={`friends[${index}].email`}>
                               {
                                 ({ field, form }) => (
                                   <input {...field} type="email" placeholder="bob@gmail.com" />
@@ -51,7 +49,7 @@ class App extends Component {
                             </Field>
                           </div>
                           <div className="col">
-                            <button type="button" >
+                            <button type="button" onClick={() => { remove(index); }}>
                               X
                             </button>
                           </div>

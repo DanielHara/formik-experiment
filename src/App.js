@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Formik, Field } from 'formik';
+import { Formik, Field, Form } from 'formik';
 
 const initialValues = {
   name: 'Bob',
@@ -20,23 +20,28 @@ class App extends Component {
             }, 500);
           }}
          >
-          {() => <div>
-
-            <div className="row">
-              <div className="col">
-                <Field name="name" type="text" />
-              </div>
-              <div className="col">
-                <Field name="email" type="email" />
-              </div>
-              <div className="col">
-                <button type="button" >
-                  Submit
+          {({ isSubmitting }) =>
+            <Form>
+              <div className="row">
+                <div className="col">
+                  <Field name="name" type="text" />
+                </div>
+                <div className="col">
+                  <Field name="email" type="email" />
+                </div>
+                <div className="col">
+                  <button type="button" >
+                    X
+                  </button>
+                </div>
+                <button type="button" disabled={isSubmitting}>
+                  Add friend
+                </button>
+                <button type="submit" disabled={isSubmitting}>
+                  Invite
                 </button>
               </div>
-            </div>
-
-          </div>
+            </Form>        
           }
         </Formik>
       </div>

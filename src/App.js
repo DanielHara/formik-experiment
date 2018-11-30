@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Formik, Field, Form } from 'formik';
 
 const initialValues = {
-  name: 'Bob',
-  email: 'bob@gmail.com'
+  name: '',
+  email: ''
 };
 
 
@@ -24,10 +24,22 @@ class App extends Component {
             <Form>
               <div className="row">
                 <div className="col">
-                  <Field name="name" type="text" />
+                  <Field name="name">
+                    {
+                      ({ field, form }) => (
+                        <input {...field} type="text" placeholder="Bob" />
+                      )
+                    }
+                  </Field>
                 </div>
                 <div className="col">
-                  <Field name="email" type="email" />
+                  <Field name="email">
+                    {
+                      ({ field, form }) => (
+                        <input {...field} type="email" placeholder="bob@gmail.com" />
+                      )
+                    }
+                  </Field>
                 </div>
                 <div className="col">
                   <button type="button" >
